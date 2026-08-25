@@ -1,0 +1,13 @@
+title: Jiyoung Lee
+description: On-device AI · NPU · LLM serving systems
+email: dlwlzzero@gmail.com
+github_username: dlwlzzero
+
+theme: minima
+show_excerpts: true
+
+header_pages:
+  - about.md
+
+exclude:
+  - README.md
