@@ -6,8 +6,5 @@ github_username: dlwlzzero
 theme: minima
 show_excerpts: true
 
-header_pages:
-  - about.md
-
 exclude:
   - README.md

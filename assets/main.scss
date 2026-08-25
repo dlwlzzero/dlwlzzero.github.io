@@ -1,0 +1,49 @@
+---
+# Front matter required so Jekyll processes this file.
+# Shadows minima's own assets/main.scss.
+---
+
+@import "minima";
+
+// minima 2.5 gives .post-content h1 no size rule, so it inherits the browser's
+// 2em (32px) — exactly the same as its h2. Restate the whole scale instead.
+.post-content,
+.home {
+  h1 { @include relative-font-size(2.0); margin-top: $spacing-unit * 1.5; }
+
+  h2 {
+    @include relative-font-size(1.625);
+    margin-top: $spacing-unit * 1.5;
+    padding-bottom: 6px;
+    border-bottom: 1px solid $grey-color-light;
+  }
+
+  h3 {
+    @include relative-font-size(1.25);
+    margin-top: $spacing-unit;
+    margin-bottom: 4px;
+  }
+
+  h4 { @include relative-font-size(1.0625); font-weight: 600; }
+
+  // The italic line right under an h3 is a date/role subtitle, not body copy.
+  h3 + p em {
+    color: $grey-color;
+    font-style: normal;
+    @include relative-font-size(0.9375);
+  }
+
+  @include media-query($on-palm) {
+    h1 { @include relative-font-size(1.75); }
+    h2 { @include relative-font-size(1.375); }
+    h3 { @include relative-font-size(1.125); }
+    h4 { @include relative-font-size(1.0); }
+  }
+}
+
+// The first heading on a page shouldn't push itself off the top.
+.post-content > h1:first-child,
+.post-content > h2:first-child,
+.home > h2:first-child {
+  margin-top: 0;
+}
