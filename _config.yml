@@ -15,7 +15,7 @@ collections:
     permalink: /study/:title/
 defaults:
   - scope: { path: "", type: study }
-    values: { layout: post }
+    values: { layout: study }
 
 header_pages:
   - index.md

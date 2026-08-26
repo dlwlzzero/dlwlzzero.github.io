@@ -1,4 +1,8 @@
-# [Review] Roofline: An Insightful Visual Performance Model for Multicore Architectures
+---
+title: "[Review] Roofline: An Insightful Visual Performance Model for Multicore Architectures"
+date: 2026-08-26
+last_modified_at: 2026-08-26
+---
 
 ## Roofline Model이란 무엇인가?
 - 주어진 컴퓨팅 환경에서 성능의 제약조건이 어느 부분인지 쉽게 시각화할 수 있는 도구
