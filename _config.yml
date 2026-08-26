@@ -8,3 +8,15 @@ show_excerpts: true
 
 exclude:
   - README.md
+
+collections:
+  study:
+    output: true
+    permalink: /study/:title/
+defaults:
+  - scope: { path: "", type: study }
+    values: { layout: post }
+
+header_pages:
+  - index.md
+  - study.md
