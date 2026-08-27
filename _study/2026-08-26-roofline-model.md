@@ -1,7 +1,7 @@
 ---
 title: "[Review] Roofline: An Insightful Visual Performance Model for Multicore Architectures"
 date: 2026-08-26
-last_modified_at: 2026-08-26
+last_modified_at: 2026-08-27
 ---
 
 ## Background
@@ -59,13 +59,58 @@ last_modified_at: 2026-08-26
   - **bound and bottleneck analysis**: Amdahl's Law (병렬 컴퓨터의 성능 향상은 병렬 프로그램의 직렬(순차) 부분에 의해 제한됨)
  
 ## Roofline Model이란 무엇인가?
-- 주어진 컴퓨팅 환경에서 성능의 제약조건이 어느 부분인지 쉽게 시각화할 수 있는 도구
-- 컴퓨팅 성능은 주로 ①메모리 대역폭과 ②연산기(최대 연산 능력)에 영향을 받으며, Roofline model에서는 이를 하나의 그래프에 시각화
+  - 주어진 컴퓨팅 환경에서 성능의 제약조건이 어느 부분인지 쉽게 시각화할 수 있는 도구
+  - 컴퓨팅 성능은 주로 ①메모리 대역폭과 ②연산기(최대 연산 능력)에 영향을 받으며, Roofline model에서는 이를 하나의 그래프에 시각화
 
-## Roofline Model 분석
+## Roofline Model 뜯어보기
 ### Operational Intensity
-### Roofline Model Graph 분석
+  - 정의: `Flops / Byte`, DRAM에서 가져온 바이트당 몇 번의 부동소수점 연산을 하는지를 의미
+    - 초당 연산량(Flop/s)이 아니라 **비율(ratio)**임에 주의
+  - 측정 방법: caches와 메모리 사이의 traffic을 측정하면 됨
+    - 커널이 반복 사용하는 데이터가 온칩 캐시 용량보다 커서 워킹셋이 캐시에 들어가지 않음 -> 트래픽이 DRAM까지 내려감
+
+### 그래프 읽는 법
+
+<figure>
+  <img src="/assets/images/roofline-model.png" alt="Roofline model for AMD Opteron X2 and Opteron X2 vs. X4">
+  <figcaption>Figure 1. Roofline model for (a) AMD Opteron X2 and (b) Opteron X2 vs. X4 (Williams et al., 2009)</figcaption>
+</figure>
+
+  - floating-point performance, operational intensity, memory performance를 2D graph에 표현한 것
+    - x축: Operational Intensity (Flop/Byte) / y축: Attainable Performance (GFlop/s)
+    - **두 축 모두 log scale (log-log 그래프)**
+  - 2개의 line
+    - horizontal line (peak floating-point performance)
+      - HW spec이나 microbenchmarks를 통해 확인할 수 있음
+      - HW spec에 의한 고정값이며 어떤 kernel도 이 line보다 높은 성능을 낼 수 없음
+    - unit slope line (peak memory bandwidth)
+      - memory system behind the caches(메모리 컨트롤러 + DRAM 채널 + DIMM)에 의해 정의됨
+      - 그 컴퓨터의 메모리가 steady-state에서 낼 수 있는 최대 대역폭이며, HW에 의해 정해진 고정값
+      - 기울기가 1인 이유: `y = BW * x`를 log-log에 그리면 `log y = log BW + log x`
+  - `Attainable GFlops/sec = min(Peak Floating-Point Performance, Peak Memory Bandwidth * Operational Intensity)`
+
 ### Ridge Point가 의미하는 것
+  - 두 line이 만나는 교차점으로, 그 컴퓨터의 전반적인 성능 특성을 한눈에 보여줌
+  - x좌표 = `Peak Floating-Point Performance / Peak Memory Bandwidth` (그 머신의 Flop/Byte 균형점)
+  - **커널** 관점: ridge point 기준 왼쪽에 위치하면 memory-bound, 오른쪽에 위치하면 compute-bound
+  - **머신** 관점: ridge point의 위치 자체가 그 컴퓨터의 성격을 말해줌
+
+    | ridge point 위치 | 의미 |
+    | ------------- | ------------- |
+    | 왼쪽 (작은 OI) | 대역폭에 여유가 있는 균형 잡힌 머신. 웬만한 커널도 peak에 도달하기 쉬움 |
+    | 오른쪽 (큰 OI) | 연산 대비 대역폭이 빈약. 아주 높은 intensity의 커널만 peak에 도달 |
+
+
+## Ceiling: 무엇을 먼저 고칠 것인가
+### 지붕 아래의 천장들
+
+### 천장을 쌓는 순서 = 최적화 순서
+
+### 커널의 위치에 따라 갈리는 처방
+
+
+## 3Cs와 Operational Intensity: 점을 오른쪽으로 밀기
+
 
 ## References
 - [Roofline: An Insightful Visual Performance Model for Multicore Architectures (Williams et al., 2009)](https://dl.acm.org/doi/10.1145/1498765.1498785)
