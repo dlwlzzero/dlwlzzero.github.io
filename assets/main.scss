@@ -1,49 +1,175 @@
 ---
 # Front matter required so Jekyll processes this file.
-# Shadows minima's own assets/main.scss.
+# Replaces minima's stylesheet entirely (no @import "minima").
 ---
 
-@import "minima";
-
-// minima 2.5 gives .post-content h1 no size rule, so it inherits the browser's
-// 2em (32px) — exactly the same as its h2. Restate the whole scale instead.
-.post-content,
-.home {
-  h1 { @include relative-font-size(2.0); margin-top: $spacing-unit * 1.5; }
-
-  h2 {
-    @include relative-font-size(1.625);
-    margin-top: $spacing-unit * 1.5;
-    padding-bottom: 6px;
-    border-bottom: 1px solid $grey-color-light;
-  }
-
-  h3 {
-    @include relative-font-size(1.25);
-    margin-top: $spacing-unit;
-    margin-bottom: 4px;
-  }
-
-  h4 { @include relative-font-size(1.0625); font-weight: 600; }
-
-  // The italic line right under an h3 is a date/role subtitle, not body copy.
-  h3 + p em {
-    color: $grey-color;
-    font-style: normal;
-    @include relative-font-size(0.9375);
-  }
-
-  @include media-query($on-palm) {
-    h1 { @include relative-font-size(1.75); }
-    h2 { @include relative-font-size(1.375); }
-    h3 { @include relative-font-size(1.125); }
-    h4 { @include relative-font-size(1.0); }
+:root {
+  --bg:#fbfbfb; --surface:#ffffff; --fg:#141414; --fg-2:#4a4a4a; --fg-3:#8a8a8a;
+  --rule:#e4e4e4; --rule-2:#efefef;
+  --accent:oklch(0.50 0.17 300); --accent-soft:oklch(0.965 0.025 300);
+  --sans:'Wanted Sans Variable','Wanted Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --w:1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0e0f10; --surface:#15171a; --fg:#ecedef; --fg-2:#b3b5b9; --fg-3:#7c7f84;
+    --rule:#282b30; --rule-2:#1e2124;
+    --accent:oklch(0.80 0.139 300); --accent-soft:oklch(0.25 0.05 300);
   }
 }
 
-// The first heading on a page shouldn't push itself off the top.
-.post-content > h1:first-child,
-.post-content > h2:first-child,
-.home > h2:first-child {
-  margin-top: 0;
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--sans); font-size:17px; line-height:1.72; letter-spacing:-0.005em;
+  display:flex; flex-direction:column; min-height:100vh;
 }
+img { max-width:100%; vertical-align:middle; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; text-underline-offset:3px; }
+
+.wrapper { max-width:var(--w); margin:0 auto; padding:0 40px; }
+@media (max-width:640px) { .wrapper { padding:0 20px; } }
+
+/* ---------- header / footer ---------- */
+.site-header {
+  position:sticky; top:0; z-index:5;
+  background:var(--bg); border-bottom:1px solid var(--rule);
+}
+.site-header .wrapper { height:58px; display:flex; align-items:center; justify-content:space-between; }
+.site-title {
+  font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+  text-transform:uppercase; color:var(--fg);
+}
+.site-nav { display:flex; gap:22px; font-family:var(--mono); font-size:12.5px; letter-spacing:0.03em; }
+.site-nav .page-link { color:var(--fg-3); padding-bottom:2px; }
+.site-nav .page-link.current { color:var(--fg); border-bottom:1.5px solid var(--accent); }
+
+.site-footer { border-top:1px solid var(--rule); margin-top:56px; }
+.site-footer .wrapper {
+  padding-top:26px; padding-bottom:26px;
+  display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.03em; color:var(--fg-3);
+}
+.site-footer a { color:var(--fg-3); }
+
+.page-content { flex:1; padding-bottom:40px; }
+
+/* ---------- typography ---------- */
+h1,h2,h3,h4 { font-weight:600; letter-spacing:-0.015em; }
+p, ul, ol, pre, blockquote { margin:0 0 1.1em; }
+
+.post-title { font-size:34px; font-weight:500; line-height:1.22; letter-spacing:-0.028em; margin:0; max-width:30ch; }
+.post-header { padding:52px 0 40px; border-bottom:1px solid var(--rule); }
+.post-meta {
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--fg-3); margin:0 0 18px;
+}
+.post-content { padding-top:36px; }
+
+.post-content h2, .home h2 {
+  font-family:var(--mono); font-size:15px; font-weight:500;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--fg);
+  margin:56px 0 20px; padding-bottom:10px; border-bottom:1.5px solid var(--fg);
+}
+.post-content > h2:first-child, .home h2:first-child { margin-top:0; }
+.post-content h3, .home h3 { font-size:21px; margin:36px 0 6px; }
+.post-content h4, .home h4 { font-size:17px; margin:24px 0 6px; }
+
+/* the italic line under an h3 is a role/date subtitle */
+.post-content h3 + p em, .home h3 + p em {
+  display:block; font-style:normal;
+  font-family:var(--mono); font-size:12.5px; letter-spacing:0.02em; color:var(--fg-3);
+}
+
+.post-content p, .home p { color:var(--fg-2); }
+.post-content strong, .home strong { font-weight:600; color:var(--fg); }
+
+/* ---------- lists: shallow indents, quiet markers ---------- */
+.post-content ul, .home ul { list-style:none; padding-left:1.1em; }
+.post-content li, .home li { position:relative; margin:0.42em 0; color:var(--fg-2); }
+.post-content ul > li::before, .home ul > li::before {
+  content:""; position:absolute; left:-0.95em; top:0.72em;
+  width:5px; height:1.5px; background:var(--fg-3);
+}
+.post-content li ul > li::before, .home li ul > li::before {
+  width:3px; height:3px; border-radius:50%; top:0.68em;
+}
+.post-content li ul, .home li ul { margin:0.3em 0 0.5em; }
+
+/* ---------- code ---------- */
+code, pre { font-family:var(--mono); }
+code {
+  font-size:0.86em; background:var(--rule-2); border:1px solid var(--rule);
+  border-radius:4px; padding:1px 5px; color:var(--fg-2);
+}
+pre {
+  font-size:13px; line-height:1.7; padding:14px 16px; overflow-x:auto;
+  background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+}
+pre > code { background:none; border:0; padding:0; font-size:inherit; }
+.highlight { background:none; }
+
+/* ---------- tables: hairlines, mono headers, own scroll ---------- */
+.post-content table, .home table {
+  display:block; overflow-x:auto; width:100%;
+  border-collapse:collapse; font-size:14.5px; line-height:1.62;
+  border-top:1.5px solid var(--fg); border-bottom:1px solid var(--rule);
+  margin:0.9em 0 1.4em;
+}
+.post-content th, .home th {
+  font-family:var(--mono); font-size:11.5px; font-weight:500;
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-2);
+  text-align:left; padding:10px 16px; vertical-align:bottom; white-space:nowrap;
+  border-bottom:1px solid var(--rule);
+}
+.post-content td, .home td {
+  padding:12px 16px; vertical-align:top; color:var(--fg-2);
+  min-width:150px; border-bottom:1px solid var(--rule-2);
+}
+.post-content tbody tr:last-child td, .home tbody tr:last-child td { border-bottom:none; }
+.post-content td:first-child, .home td:first-child { color:var(--fg); font-weight:500; }
+.post-content td code, .home td code { white-space:nowrap; }
+
+/* ---------- home: intro + sticky section index ---------- */
+.home { padding-top:64px; }
+.home-intro { max-width:640px; }
+.home-intro p { font-size:19px; line-height:1.65; }
+.home-intro > p:first-child {
+  font-family:var(--mono); font-size:12.5px; line-height:1.9; color:var(--fg-3);
+}
+/* the paragraphs above the first h2 in index.md are the intro block */
+.home-main > p { font-size:19px; line-height:1.65; }
+.home-main > p:first-child {
+  font-family:var(--mono); font-size:12.5px; line-height:1.9; color:var(--fg-3);
+}
+.home-main > h2:first-of-type { margin-top:8px; }
+.home-body { display:grid; grid-template-columns:172px minmax(0,1fr); gap:48px; align-items:start; padding-top:72px; }
+.home-body > .home-main { min-width:0; }
+.cv-toc {
+  position:sticky; top:90px; display:flex; flex-direction:column; gap:9px;
+  font-family:var(--mono); font-size:12px; letter-spacing:0.03em;
+}
+.cv-toc .cv-toc-label { color:var(--fg-3); padding-bottom:6px; border-bottom:1px solid var(--rule); }
+.cv-toc a { color:var(--fg-3); }
+.cv-toc a.current { color:var(--fg); }
+@media (max-width:860px) {
+  .home-body { grid-template-columns:minmax(0,1fr); gap:0; }
+  .cv-toc { display:none; }
+}
+
+/* ---------- note / post lists ---------- */
+.post-list-heading { font-size:26px; font-weight:500; letter-spacing:-0.02em; margin:0 0 24px; }
+.post-list { list-style:none; margin:0; padding:0; border-top:1.5px solid var(--fg); }
+.post-list > li { padding:18px 0; border-bottom:1px solid var(--rule-2); }
+.post-list > li > .post-meta { margin:0 0 6px; }
+.post-list h3 { margin:0; font-size:19px; font-weight:500; line-height:1.4; }
+.post-list h3 a, .post-list .post-link { color:var(--fg); }
+.post-list p { font-size:14.5px; margin:6px 0 0; }
+.rss-subscribe { font-family:var(--mono); font-size:12px; color:var(--fg-3); margin-top:20px; }
+.rss-subscribe a { color:var(--fg-3); }
+
+.notes-section { border-top:1px solid var(--rule); background:var(--surface); margin-top:56px; }
+.notes-section .wrapper { padding-top:44px; padding-bottom:56px; }

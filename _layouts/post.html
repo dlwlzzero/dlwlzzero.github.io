@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="wrapper">
+    <header class="post-header">
+      <p class="post-meta">
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%Y.%m.%d" }}</time>
+        {%- if page.last_modified_at and page.last_modified_at != page.date %} · updated {{ page.last_modified_at | date: "%Y.%m.%d" }}{% endif -%}
+      </p>
+      <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    </header>
+    <div class="post-content e-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+  </div>
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>

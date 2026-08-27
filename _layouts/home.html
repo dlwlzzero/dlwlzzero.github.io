@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<div class="home">
+  <div class="wrapper">
+    <div class="home-intro">
+      <h1 style="font-size:52px;line-height:1.06;letter-spacing:-0.03em;font-weight:500;margin:0 0 20px">{{ site.title | escape }}</h1>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="home-body">
+      <nav class="cv-toc"><span class="cv-toc-label">CONTENTS</span></nav>
+      <div class="home-main">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+
+  {%- if site.posts.size > 0 -%}
+  <section class="notes-section">
+    <div class="wrapper">
+      <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+      <ul class="post-list">
+        {%- for post in site.posts -%}
+        <li>
+          <span class="post-meta">{{ post.date | date: "%Y.%m.%d" }}</span>
+          <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+          {%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
+        </li>
+        {%- endfor -%}
+      </ul>
+      <p class="rss-subscribe">subscribe <a href="{{ '/feed.xml' | relative_url }}">via RSS</a></p>
+    </div>
+  </section>
+  {%- endif -%}
+</div>

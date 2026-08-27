@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  {%- feed_meta -%}
+  {%- seo -%}
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    <nav class="site-nav">
+      {%- for path in site.header_pages -%}
+        {%- assign my_page = site.pages | where: "path", path | first -%}
+        {%- if my_page.title -%}
+          <a class="page-link{% if page.url == my_page.url %} current{% endif %}" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  </div>
+</header>
+
+<main class="page-content" aria-label="Content">
+  {{ content }}
+</main>
+
+<footer class="site-footer">
+  <div class="wrapper">
+    <span>© {{ site.time | date: "%Y" }} {{ site.title | escape }}</span>
+    <span>{{ site.description | escape }}</span>
+    <span>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      {%- if site.github_username %} · <a href="https://github.com/{{ site.github_username }}">GitHub</a>{% endif -%}
+    </span>
+  </div>
+</footer>
+
+<script>
+// Builds the sticky section index on the home page from the h2 headings.
+(function () {
+  var toc = document.querySelector('.cv-toc');
+  if (!toc) return;
+  var heads = document.querySelectorAll('.home-main h2');
+  if (!heads.length) { toc.style.display = 'none'; return; }
+  heads.forEach(function (h, i) {
+    if (!h.id) h.id = 'section-' + (i + 1);
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = String(i + 1).padStart(2, '0') + ' ' + h.textContent.trim();
+    toc.appendChild(a);
+  });
+  var links = toc.querySelectorAll('a');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (l) {
+        l.classList.toggle('current', l.getAttribute('href') === '#' + e.target.id);
+      });
+    });
+  }, { rootMargin: '-80px 0px -70% 0px' });
+  heads.forEach(function (h) { io.observe(h); });
+})();
+</script>
+
+</body>
+</html>
