@@ -12,7 +12,7 @@ permalink: /study/
 {%- assign items = site.study | where: "type", g | sort: "date" | reverse -%}
 {%- if items.size > 0 %}
 <section class="note-group" id="group-{{ g }}">
-  <h2 class="post-list-heading">{{ labels[forloop.index0] }}</h2>
+  <h2>{{ labels[forloop.index0] }}</h2>
   <ul class="post-list">
   {%- for note in items %}
     <li data-title="{{ note.title | downcase | escape }}" data-body="{{ note.content | strip_html | downcase | escape }}">

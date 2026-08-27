@@ -190,6 +190,7 @@ pre > code { background:none; border:0; padding:0; font-size:inherit; }
 .note-search:focus { outline:none; border-color:var(--accent); }
 .note-search-empty { font-family:var(--mono); font-size:12.5px; color:var(--fg-3); }
 .note-group + .note-group { margin-top:44px; }
+.note-group .post-list { border-top:none; }  /* the h2 already draws the rule */
 @media (max-width:860px) {
   .home-body { grid-template-columns:minmax(0,1fr); gap:0; }
   .cv-toc { display:none; }
