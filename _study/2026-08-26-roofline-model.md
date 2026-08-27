@@ -1,5 +1,6 @@
 ---
-title: "[Review] Roofline: An Insightful Visual Performance Model for Multicore Architectures"
+title: "Roofline: An Insightful Visual Performance Model for Multicore Architectures"
+type: review
 date: 2026-08-26
 last_modified_at: 2026-08-27
 ---

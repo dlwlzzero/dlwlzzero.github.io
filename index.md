@@ -8,10 +8,12 @@ Republic of Korea · [dlwlzzero@gmail.com](mailto:dlwlzzero@gmail.com) · [githu
 
 I build on-device LLM runtimes at Samsung Research (AI System Team).
 Before that I spent three years designing multi-core NPU RTL on the SoC Architecture Team.
+{: .lead}
 
 Coming to runtime work from hardware, what I keep reading about is **why LLM inference is
 memory-bound** and **which layer — kernel, runtime, or silicon — is the right place to fix it**.
 Paper notes are at the bottom of this page.
+{: .lead}
 
 ## Experience
 
@@ -49,6 +51,7 @@ Designed and implemented RTL modules for a multi-core NPU processor.
 *BS in Electronic and Electrical Engineering, Minor in Brain & Cognitive Sciences · Mar 2019 – Feb 2023*
 
 Summa Cum Laude · GPA 4.28 / 4.5
+{: .fact}
 
 ## Projects
 
@@ -72,8 +75,8 @@ and encoder–decoder structure by running open-source ResNet segmentation netwo
 
 ## Scholarships
 
-- **Dean's List** — 2nd Semester 2022
-- **KT Creative Innovator Leader Scholarship** — 2nd Semester 2021
+<p class="role-row"><span class="role-title">Dean's List</span><span class="role-sub">2nd Semester 2022</span></p>
+<p class="role-row"><span class="role-title">KT Creative Innovator Leader Scholarship</span><span class="role-sub">2nd Semester 2021</span></p>
 
 ## Teaching
 
@@ -84,4 +87,4 @@ and encoder–decoder structure by running open-source ResNet segmentation netwo
 
 ## Certifications
 
-- OPIc (English) — Intermediate High · Aug 2025
+<p class="role-row"><span class="role-title">OPIc (English)</span><span class="role-sub">Intermediate High · Aug 2025</span></p>
