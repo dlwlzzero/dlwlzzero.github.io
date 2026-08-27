@@ -44,17 +44,20 @@
 </footer>
 
 <script>
-// Builds the sticky section index on the home page from the h2 headings.
+// Builds the sticky section index from headings (home: h2; notes: h2+h3).
 (function () {
   var toc = document.querySelector('.cv-toc');
   if (!toc) return;
-  var heads = document.querySelectorAll('.home-main h2');
+  var src = toc.dataset.source || '.home-main', levels = (toc.dataset.levels || 'h2').split(',');
+  var heads = document.querySelectorAll(levels.map(function (l) { return src + ' ' + l; }).join(','));
+  var n = 0;
   if (!heads.length) { toc.style.display = 'none'; return; }
   heads.forEach(function (h, i) {
     if (!h.id) h.id = 'section-' + (i + 1);
     var a = document.createElement('a');
     a.href = '#' + h.id;
-    a.textContent = String(i + 1).padStart(2, '0') + ' ' + h.textContent.trim();
+    if (h.tagName === 'H2') { n++; a.textContent = String(n).padStart(2, '0') + ' ' + h.textContent.trim(); }
+    else { a.className = 'sub'; a.textContent = h.textContent.trim(); }
     toc.appendChild(a);
   });
   var links = toc.querySelectorAll('a');

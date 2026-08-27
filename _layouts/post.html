@@ -10,8 +10,11 @@ layout: default
       </p>
       <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     </header>
-    <div class="post-content e-content" itemprop="articleBody">
-      {{ content }}
+    <div class="home-body post-body">
+      <nav class="cv-toc" data-source=".post-content" data-levels="h2,h3"><span class="cv-toc-label">ON THIS PAGE</span></nav>
+      <div class="post-content e-content" itemprop="articleBody">
+        {{ content }}
+      </div>
     </div>
   </div>
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
