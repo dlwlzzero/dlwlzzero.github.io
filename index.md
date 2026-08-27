@@ -64,27 +64,23 @@ and encoder–decoder structure by running open-source ResNet segmentation netwo
 
 ## Awards
 
-- **Gold Award, Student Railway Creative Works Exhibition** — 2nd Semester 2020
-  The Korean Society for Railway President's Award · Wheel Axle Obstruction Detection System using Infrared Sensors — designed and implemented an Arduino-based infrared sensor system to detect wheel axle obstructions and enhance railway safety
+<details markdown="1">
+<summary><span class="role-title">Gold Award, Student Railway Creative Works Exhibition</span><span class="role-sub">The Korean Society for Railway President's Award · 2nd Semester 2020</span></summary>
+
+- Wheel Axle Obstruction Detection System using Infrared Sensors — designed and implemented an Arduino-based infrared sensor system to detect wheel axle obstructions and enhance railway safety
+</details>
 
 ## Scholarships
 
 - **Dean's List** — 2nd Semester 2022
 - **KT Creative Innovator Leader Scholarship** — 2nd Semester 2021
 
-## Skills
+## Teaching
 
-| | |
-|---|---|
-| **Programming** | C++, Python, Kotlin, Verilog, SystemVerilog |
-| **On-device AI / NPU** | QNN SDK, nntrainer |
-| **Hardware & EDA** | DPI-C, Xcelium, Design Compiler |
-| **Tools** | Git/GitHub, CMake, Meson, Android NDK, PyQt5 |
+### Ewha Womans University
 
-## Activities
-
-- **Undergraduate Peer Tutor — Communication Theory** · Ewha Womans University · Mar 2022 – Jun 2022
-- **Undergraduate Peer Tutor — Signals and Systems** · Ewha Womans University · Mar 2021 – Jun 2021
+<p class="role-row"><span class="role-title">Communication Theory</span><span class="role-sub">Undergraduate Peer Tutor · Mar 2022 – Jun 2022</span></p>
+<p class="role-row"><span class="role-title">Signals and Systems</span><span class="role-sub">Undergraduate Peer Tutor · Mar 2021 – Jun 2021</span></p>
 
 ## Certifications
 
