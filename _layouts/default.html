@@ -64,6 +64,22 @@
   var heads = root.querySelectorAll(levels.join(','));
   if (!heads.length) { toc.style.display = 'none'; return; }
 
+  // The index is tracked like the mono labels, so Hangul opts out here too
+  // (matches the lang="ko" spans the notes carry in their headings).
+  var HANGUL = /[\uAC00-\uD7A3][\uAC00-\uD7A3\d ()\[\]\/\u00b7~,.:%\u2013\u2014-]*[\uAC00-\uD7A3][)\]]*|[\uAC00-\uD7A3]/g;
+  function setLabel(el, text) {
+    var last = 0;
+    text.replace(HANGUL, function (m, i) {
+      if (i > last) el.appendChild(document.createTextNode(text.slice(last, i)));
+      var s = document.createElement('span');
+      s.lang = 'ko';
+      s.textContent = m;
+      el.appendChild(s);
+      last = i + m.length;
+    });
+    if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+  }
+
   if (!nested) {
     var n = 0;
     heads.forEach(function (h, i) {
@@ -71,7 +87,7 @@
       var a = document.createElement('a');
       a.href = '#' + h.id;
       n++;
-      a.textContent = String(n).padStart(2, '0') + ' ' + h.textContent.trim();
+      setLabel(a, String(n).padStart(2, '0') + ' ' + h.textContent.trim());
       toc.appendChild(a);
     });
     observe(toc.querySelectorAll('a'), heads);
@@ -101,7 +117,7 @@
     sign.className = 'cv-toc-sign';
     sign.textContent = sec.subs.length ? '+' : '';
     var label = document.createElement('span');
-    label.textContent = String(sec.index).padStart(2, '0') + ' ' + sec.head.textContent.trim();
+    setLabel(label, String(sec.index).padStart(2, '0') + ' ' + sec.head.textContent.trim());
     btn.appendChild(sign);
     btn.appendChild(label);
     wrap.appendChild(btn);
@@ -112,7 +128,7 @@
     sec.subs.forEach(function (h) {
       var a = document.createElement('a');
       a.href = '#' + h.id;
-      a.textContent = h.textContent.trim();
+      setLabel(a, h.textContent.trim());
       subs.appendChild(a);
     });
     wrap.appendChild(subs);

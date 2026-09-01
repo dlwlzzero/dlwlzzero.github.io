@@ -25,6 +25,13 @@
 }
 :root[data-theme="dark"] { @include dark-palette; }
 
+/* The mono labels are tracked for Latin caps; Hangul takes no tracking, so
+   Korean runs are marked with lang="ko" and opt out of it. IBM Plex Mono has
+   no Hangul but does have a space, so a Korean run left on the mono stack gets
+   Wanted Sans glyphs around a wide monospace space -- pin the whole run to the
+   sans stack so it sets evenly. */
+[lang="ko"] { letter-spacing:normal; font-family:var(--sans); }
+
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {

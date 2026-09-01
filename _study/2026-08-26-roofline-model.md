@@ -11,7 +11,7 @@ last_modified_at: 2026-08-27
 <p style="margin:0 0 8px; color:var(--fg); font-size:17px; line-height:1.75">ISA(Instruction Set Architecture, 명령어 집합 구조)의 다양화</p>
 <table style="margin:16px 0 8px">
   <thead><tr>
-    <th>항목</th>
+    <th><span lang="ko">항목</span></th>
     <th>CISC = Complex Instruction Set Computer</th>
     <th>RISC = Reduced Instruction Set Computer</th>
   </tr></thead>
@@ -61,7 +61,7 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 <p style="margin:28px 0 8px; color:var(--fg); font-size:17px; line-height:1.75">Cache vs Local Memory</p>
 <table style="margin:16px 0 8px">
   <thead><tr>
-    <th>항목</th>
+    <th><span lang="ko">항목</span></th>
     <th>Cache</th>
     <th>Local store / Scratchpad</th>
   </tr></thead>
@@ -103,9 +103,9 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 <p style="margin:0 0 8px; color:var(--fg); font-size:17px; line-height:1.75">연산 성능과 메모리 성능의 개선 속도가 수십 년째 벌어져 옴</p>
 <table style="margin:16px 0 20px">
   <thead><tr>
-    <th>항목</th>
-    <th>연간 개선률 (경험적 추세)</th>
-    <th>결과</th>
+    <th><span lang="ko">항목</span></th>
+    <th><span lang="ko">연간 개선률 (경험적 추세)</span></th>
+    <th><span lang="ko">결과</span></th>
   </tr></thead>
   <tbody>
     <tr>
@@ -140,7 +140,7 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 </div>
 <table style="margin:16px 0 20px">
   <thead><tr>
-    <th>항목</th>
+    <th><span lang="ko">항목</span></th>
     <th>Compulsory (cold miss)</th>
     <th>Capacity</th>
     <th>Conflict</th>
@@ -177,10 +177,10 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
   <p style="margin:0; color:var(--fg); font-size:17px; line-height:1.75"><strong style="font-weight:600">bound and bottleneck analysis</strong>: Amdahl's Law (병렬 컴퓨터의 성능 향상은 병렬 프로그램의 직렬(순차) 부분에 의해 제한됨)</p>
 </div>
 
-<h2 id="s2">Roofline Model 뜯어보기</h2>
+<h2 id="s2">Roofline Model <span lang="ko">뜯어보기</span></h2>
 
 <h3>한 줄 요약</h3>
-<div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px; display:flex; flex-direction:column; gap:8px">
+<div style="display:flex; flex-direction:column; gap:8px">
   <p style="margin:0; color:var(--fg); font-size:16.5px; line-height:1.72">주어진 컴퓨팅 환경에서 성능의 제약조건이 어느 부분인지 쉽게 시각화할 수 있는 도구</p>
   <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">컴퓨팅 성능은 주로 ①메모리 대역폭과 ②연산기(최대 연산 능력)에 영향을 받으며, Roofline model에서는 이를 하나의 그래프에 시각화</p>
 </div>
@@ -214,13 +214,13 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
     <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><strong style="font-weight:600; color:var(--fg)">두 축 모두 log scale (log-log 그래프)</strong></p>
   </div>
 </div>
-<p style="margin:20px 0 12px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">2개의 line</p>
+<p style="margin:20px 0 12px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)"><span lang="ko">2개의</span> line</p>
 <div style="display:grid; gap:14px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">horizontal line — peak floating-point performance</p>
     <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">HW spec이나 microbenchmarks로 확인할 수 있는 고정값이며, 어떤 kernel도 이 line보다 높은 성능을 낼 수 없음</p>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">unit slope line — peak memory bandwidth</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">캐시 뒤쪽의 메모리 시스템(메모리 컨트롤러 + DRAM 채널 + DIMM)이 결정함</p>
@@ -240,8 +240,8 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 </div>
 <table style="margin:20px 0 8px">
   <thead><tr>
-    <th>ridge point 위치</th>
-    <th>의미</th>
+    <th>ridge point <span lang="ko">위치</span></th>
+    <th><span lang="ko">의미</span></th>
   </tr></thead>
   <tbody>
     <tr>
@@ -264,7 +264,7 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 <h3>Add Multiple Ceilings (어떤 Optimization부터 적용할 것인가)</h3>
 <p style="margin:0 0 16px; color:var(--fg); font-size:17px; line-height:1.75">ceiling의 역할: 대응하는 optimization을 적용하기 전까지는 그 위의 performance line에 도달할 수 없음</p>
 <div style="display:grid; gap:14px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">Computational (Performance) Ceiling</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><span style="color:var(--fg)">ILP(instruction-level parallelism) 향상:</span> superscalar 프로세서가 매 클럭 최대한 많은 명령어를 fetch/execute/commit 하도록 loop unrolling 등을 적용</p>
@@ -272,7 +272,7 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><span style="color:var(--fg)">floating-point 연산의 균형:</span> 덧셈과 곱셈의 비중이 동일해야 함 (FP adder와 multiplier가 별도 유닛이라 1:1일 때만 둘 다 포화됨)</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">Bandwidth (Memory) Ceiling</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><span style="color:var(--fg)">unit stride 접근이 되도록 loop 재구성:</span> HW prefetcher가 접근 패턴을 인식할 수 있게 되어 prefetch 성능이 올라감</p>
@@ -301,8 +301,8 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 <p style="margin:20px 0 8px; color:var(--fg); font-size:17px; line-height:1.75">커널의 OI가 ridge point 기준 어디에 있느냐에 따라 먼저 손댈 ceiling이 갈림</p>
 <table style="margin:16px 0 8px">
   <thead><tr>
-    <th>커널 위치</th>
-    <th>먼저 뚫을 ceiling</th>
+    <th><span lang="ko">커널 위치</span></th>
+    <th><span lang="ko">먼저 뚫을</span> ceiling</th>
   </tr></thead>
   <tbody>
     <tr>
@@ -325,7 +325,7 @@ sw    $t1, 0($t0)      # 레지스터 → 메모리</pre></td>
 <div style="display:flex; flex-direction:column; gap:0">
   <div style="border-top:1px solid var(--rule); padding:16px 0">
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">일부 커널에서는 연산의 사이즈에 따라서 OI가 증가할 수도 있음</p>
-    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">예제 — Dense Matrix Multiply (IN1=IN2=OUT=[N,N] size, single precision)</p>
+    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)"><span lang="ko">예제</span> — Dense Matrix Multiply (IN1=IN2=OUT=[N,N] size, single precision)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="color:var(--fg)">Flops:</span> <code>ADD_OP_CNT+MUL_OP_CNT=2*(N^3)</code></p>
       <p style="margin:0; color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="color:var(--fg)">Bytes:</span> <code>IN1_SIZE+IN2_SIZE+OUT_SIZE=3*(N^2)*(4 Bytes)= 12*(N^2)</code> (single precision 기준, double이면 <code>24*(N^2)</code>)</p>

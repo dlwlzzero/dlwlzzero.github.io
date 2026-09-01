@@ -5,7 +5,7 @@ date: 2026-08-27
 last_modified_at: 2026-09-01
 ---
 
-<h2 id="s1">캐시란 무엇인가</h2>
+<h2 id="s1"><span lang="ko">캐시란 무엇인가</span></h2>
 
 <h3>캐시의 역할</h3>
 <div style="display:flex; flex-direction:column; gap:14px">
@@ -24,23 +24,23 @@ last_modified_at: 2026-09-01
   <p style="margin:0; color:var(--fg); font-size:17px; line-height:1.75">Locality는 대표적으로 temporal/spatial으로 구분됨</p>
 </div>
 <div style="display:grid; gap:16px; margin-top:16px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
-    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg)">Temporal Locality — 시간적 지역성</p>
+  <div>
+    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg)">Temporal Locality — <span lang="ko">시간적 지역성</span></p>
     <p style="margin:0; color:var(--fg); font-size:16.5px; line-height:1.72">최근에 참조된 주소의 내용은 곧 다음에 다시 참조됨</p>
-    <p style="margin:8px 0 0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--fg-3)">예시 </span>메모리 상의 같은 주소에 여러 차례 R/W를 수행할 경우, 상대적으로 작은 크기의 cache를 사용해도 효율성을 꾀할 수 있음</p>
+    <p style="margin:8px 0 0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--fg-3)"><span lang="ko">예시</span> </span>메모리 상의 같은 주소에 여러 차례 R/W를 수행할 경우, 상대적으로 작은 크기의 cache를 사용해도 효율성을 꾀할 수 있음</p>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
-    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg)">Spatial Locality — 공간적 지역성</p>
+  <div>
+    <p style="margin:0 0 10px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg)">Spatial Locality — <span lang="ko">공간적 지역성</span></p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg); font-size:16.5px; line-height:1.72">기억장치 내에 서로 인접하여 저장되어 있는 데이터들이 연속적으로 참조될 가능성이 높아짐</p>
       <p style="margin:0; color:var(--fg); font-size:16.5px; line-height:1.72">CPU 또는 Disk Cache의 경우 한 메모리 주소에 접근할 때, 그 주소뿐 아니라 해당 블록을 전부 캐시에 가져오게 됨</p>
     </div>
-    <p style="margin:8px 0 0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--fg-3)">예시 </span>메모리 주소를 오름차순/내림차순으로 접근한다면, 캐시에 이미 저장된 같은 블록의 데이터를 접근하게 되므로 캐시의 효율성이 크게 향상됨</p>
+    <p style="margin:8px 0 0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--fg-3)"><span lang="ko">예시</span> </span>메모리 주소를 오름차순/내림차순으로 접근한다면, 캐시에 이미 저장된 같은 블록의 데이터를 접근하게 되므로 캐시의 효율성이 크게 향상됨</p>
   </div>
 </div>
 
 
-<h2 id="s2">캐시 기본 동작</h2>
+<h2 id="s2"><span lang="ko">캐시 기본 동작</span></h2>
 
 <h3>캐시 메모리 관련 용어</h3>
 <dl style="margin:0; display:flex; flex-direction:column; gap:0">
@@ -130,7 +130,7 @@ last_modified_at: 2026-09-01
   <figcaption style="margin-top:10px; text-align:center; font-family:var(--mono); font-size:12.5px; line-height:1.6; color:var(--fg-3)">4-way set associative datapath</figcaption>
 </figure>
 
-<p style="margin:0 0 12px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">Lookup — Read/Write 공통</p>
+<p style="margin:0 0 12px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">Lookup — Read/Write <span lang="ko">공통</span></p>
 <ol style="list-style:none; margin:0 0 28px; padding:0; display:flex; flex-direction:column; gap:12px; counter-reset:step">
   <li style="display:flex; gap:14px"><span style="flex:0 0 auto; font-family:var(--mono); font-size:12px; color:var(--fg-3); padding-top:4px">01</span><p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><strong style="font-weight:600; color:var(--fg)">주소 분할</strong> — 요청된 memory address를 <code>[ Tag | Index | Block offset ]</code>으로 자름</p></li>
   <li style="display:flex; gap:14px"><span style="flex:0 0 auto; font-family:var(--mono); font-size:12px; color:var(--fg-3); padding-top:4px">02</span><p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><strong style="font-weight:600; color:var(--fg)">Set 선택</strong> — Index bit으로 확인할 set 하나를 고름</p></li>
@@ -171,7 +171,7 @@ last_modified_at: 2026-09-01
 </div>
 
 
-<h2 id="s3">배치 정책 (Placement / Mapping) — associativity</h2>
+<h2 id="s3"><span lang="ko">배치 정책</span> (Placement / Mapping) — associativity</h2>
 <p style="margin:0 0 20px; color:var(--fg); font-size:17px; line-height:1.75">Mapping(사상)이란, 주기억장치의 block이 캐시의 어느 위치에 놓일 수 있는지를 결정하는 대응 규칙을 의미함</p>
 <h3>직접 매핑 (Direct-mapped) / 연관 매핑 (Fully-associative) / 집합 연관 매핑 (N-way set-associative)</h3>
 <figure style="margin:1.6em 0">
@@ -204,7 +204,7 @@ last_modified_at: 2026-09-01
         <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">캐시 메모리를 n개의 block(way)을 가진 set이라는 단위로 나누고, 각 memory block은 정해진 하나의 set 안에서는 아무 way에나 대응될 수 있는 방식</p>
         <p style="margin:8px 0 0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:15.5px; line-height:1.7">hit/miss 판정을 위해서 하나의 set에 존재하는 cache block(way)을 모두 확인해야 함</p>
       </div>
-      <p style="margin:6px 0 0; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">N-way tradeoff — N 값이 커질수록</p>
+      <p style="margin:6px 0 0; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-3)">N-way tradeoff — N <span lang="ko">값이 커질수록</span></p>
       <div style="display:flex; flex-direction:column; gap:6px; padding-left:18px; border-left:1px solid var(--rule)">
         <p style="margin:0; color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="color:var(--fg)">장점:</span> 같은 자리를 두고 다투던 block들이 분산되어 conflict miss가 줄고 hit rate가 오름</p>
         <p style="margin:0; color:var(--fg-2); font-size:15.5px; line-height:1.7"><span style="color:var(--fg)">단점:</span> tag 비교기를 n개 병렬로 돌려야 해서 면적/전력이 늘고 hit time이 길어짐, LRU 등 교체 상태를 관리하는 비용도 함께 늘어남</p>
@@ -215,14 +215,14 @@ last_modified_at: 2026-09-01
 </div>
 
 
-<h2 id="s4">캐시 교체(Replacement) 알고리즘</h2>
+<h2 id="s4"><span lang="ko">캐시 교체</span>(Replacement) <span lang="ko">알고리즘</span></h2>
 <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:24px">
   <p style="margin:0; color:var(--fg); font-size:17px; line-height:1.75">캐시 크기의 제한으로 인하여 캐시에 모든 데이터를 저장할 수 없음</p>
   <p style="margin:0; padding-left:18px; border-left:1px solid var(--rule); color:var(--fg-2); font-size:16px; line-height:1.72">따라서 캐시가 가득 찬 상태에서 새 block을 채워야 할 때, 캐시 교체 알고리즘에 따라 어떤 block(victim)을 버릴지 결정함</p>
 </div>
 <h3>캐시 교체 알고리즘의 종류</h3>
 <div style="display:grid; gap:14px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">LRU (Least Recently Used)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">가장 오랫동안 사용되지 않은 cache block을 교체하는 방식</p>
@@ -230,7 +230,7 @@ last_modified_at: 2026-09-01
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">set 안 way들의 사용 순서를 저장하고 hit마다 갱신해야 하므로, way 수가 늘면 상태 bit과 갱신 회로가 급격히 커짐</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">pseudo-LRU (tree-PLRU)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">정확한 사용 순서를 포기하고 "대략 오래된 것"을 고르는 LRU의 근사 방식</p>
@@ -245,7 +245,7 @@ last_modified_at: 2026-09-01
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">가끔 진짜 LRU와 다른 victim을 고르지만 hit rate 손해가 작아, 실제 L1/L2 캐시에 널리 쓰임</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">FIFO (First In First Out)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">가장 먼저 들어온 cache block을 교체하는 방식</p>
@@ -253,7 +253,7 @@ last_modified_at: 2026-09-01
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">자주 쓰이는 block도 오래됐다는 이유만으로 쫓겨날 수 있어 hit rate가 LRU보다 떨어짐</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">Random</p>
     <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">제거할 cache block을 임의로 선택하여 교체하는 방식. 관리할 상태가 아예 없어 가장 저렴하며, associativity가 큰 경우 LRU와의 hit rate 차이가 크지 않아 실제로 채택되기도 함</p>
   </div>
@@ -279,7 +279,7 @@ last_modified_at: 2026-09-01
 </div>
 
 
-<h2 id="s5">쓰기 정책 (Write)</h2>
+<h2 id="s5"><span lang="ko">쓰기 정책</span> (Write)</h2>
 <h3>캐시 일관성(Cache Coherence)</h3>
 <div style="display:flex; flex-direction:column; gap:8px">
   <p style="margin:0; color:var(--fg); font-size:17px; line-height:1.75">캐시에서 "데이터가 일치한다"는 말은 서로 다른 두 방향을 가리킬 수 있으므로 구분해야 함</p>
@@ -287,9 +287,9 @@ last_modified_at: 2026-09-01
 </div>
 <table style="margin:20px 0 8px">
   <thead><tr>
-    <th>구분</th>
-    <th>캐시 ↔ 하위 계층</th>
-    <th>멀티 코어 간의 일관성</th>
+    <th><span lang="ko">구분</span></th>
+    <th><span lang="ko">캐시</span> ↔ <span lang="ko">하위 계층</span></th>
+    <th><span lang="ko">멀티 코어 간의 일관성</span></th>
   </tr></thead>
   <tbody>
     <tr>
@@ -312,7 +312,7 @@ last_modified_at: 2026-09-01
 
 <h3>캐시 메모리 Write 정책: write-through vs write-back</h3>
 <div style="display:grid; gap:14px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">write-through</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">캐시 메모리에 데이터가 Write되는 시점에 해당 데이터를 메인 메모리에도 저장하는 정책 (캐시 메모리와 실제 메모리 저장소 모두에 데이터를 업데이트 하는 정책)</p>
@@ -320,7 +320,7 @@ last_modified_at: 2026-09-01
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><span style="color:var(--fg)">단점:</span> 처리속도가 느림 (보완책: 캐시 메모리에 write buffer를 추가하여 사용함)</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">write-back (lazy write)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <div>
@@ -339,7 +339,7 @@ last_modified_at: 2026-09-01
 <h3>Write miss 발생 시의 정책: write-allocate vs no-write-allocate</h3>
 <p style="margin:0 0 16px; color:var(--fg); font-size:17px; line-height:1.75">Read miss는 CPU에게 값을 넘겨주어야 하므로 무조건 block을 캐시로 가져와야 하지만, write miss는 CPU가 값을 돌려받을 필요가 없으므로 "굳이 캐시로 가져올 것인가"라는 선택지가 생김</p>
 <div style="display:grid; gap:14px">
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">write-allocate (fetch-on-write)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">write miss가 발생하면 해당 block을 하위 계층에서 캐시로 가져온 뒤(Read miss와 동일한 Fill 절차), 그 위에 데이터를 write함</p>
@@ -347,14 +347,14 @@ last_modified_at: 2026-09-01
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">쓴 자리를 곧 다시 읽거나 쓰는 경우(locality가 있는 경우)에 유리함</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">no write-allocate (write around)</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">write miss가 발생하면, 캐시 메모리에 새로운 데이터 블록을 로드하지 않고 직접 메모리에 write함 (캐시 상태는 그대로 유지됨)</p>
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72">한 번 쓰고 다시 참조하지 않는 데이터(큰 버퍼를 순차적으로 채우는 경우 등)에 유리하며, 쓰이지 않을 block이 기존 block을 밀어내는 cache pollution을 막을 수 있음</p>
     </div>
   </div>
-  <div style="background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px 20px">
+  <div>
     <p style="margin:0 0 10px; font-size:16.5px; font-weight:600; color:var(--fg)">통상적인 조합</p>
     <div style="display:flex; flex-direction:column; gap:8px">
       <p style="margin:0; color:var(--fg-2); font-size:16px; line-height:1.72"><span style="color:var(--fg)">write-back + write-allocate:</span> 일단 캐시에 올려두면 이후 같은 block에 대한 write가 모두 캐시에서 흡수되므로, 하위 계층 트래픽을 줄인다는 두 정책의 목적이 서로 맞음</p>
@@ -364,7 +364,7 @@ last_modified_at: 2026-09-01
 </div>
 
 
-<h2 id="s6">캐시 계층 구조</h2>
+<h2 id="s6"><span lang="ko">캐시 계층 구조</span></h2>
 <h3>L1/L2/L3 Cache</h3>
 <figure style="margin:1.6em 0">
   <img src="/assets/images/cache-hierarchy.png" alt="Cache hierarchy of a multicore processor with per-core L1 i/d and L2, and a shared L3" style="display:block; margin:0 auto">
@@ -398,9 +398,9 @@ last_modified_at: 2026-09-01
 
 <table style="margin:24px 0 8px">
   <thead><tr>
-    <th>캐시</th>
-    <th>L1-I(명령어)</th>
-    <th>L1-D(데이터)</th>
+    <th><span lang="ko">캐시</span></th>
+    <th>L1-I<span lang="ko">(명령어)</span></th>
+    <th>L1-D<span lang="ko">(데이터)</span></th>
     <th>L2</th>
     <th>L3</th>
   </tr></thead>
@@ -448,7 +448,7 @@ last_modified_at: 2026-09-01
 </div>
 <table style="margin:20px 0 12px">
   <thead><tr>
-    <th>구분</th>
+    <th><span lang="ko">구분</span></th>
     <th>Local miss rate</th>
     <th>Global miss rate</th>
   </tr></thead>
@@ -486,9 +486,9 @@ last_modified_at: 2026-09-01
 </div>
 <table style="margin:20px 0 8px">
   <thead><tr>
-    <th>구분</th>
-    <th>private (코어 전용)</th>
-    <th>shared (코어 공유)</th>
+    <th><span lang="ko">구분</span></th>
+    <th>private <span lang="ko">(코어 전용)</span></th>
+    <th>shared <span lang="ko">(코어 공유)</span></th>
   </tr></thead>
   <tbody>
     <tr>
@@ -518,7 +518,7 @@ last_modified_at: 2026-09-01
 <p style="margin:0 0 16px; color:var(--fg); font-size:17px; line-height:1.75">한 block 데이터를 여러 계층에서 중복해서 들고 있을 것인가에 대한 규칙</p>
 <table style="margin:0 0 8px">
   <thead><tr>
-    <th>정책</th>
+    <th><span lang="ko">정책</span></th>
     <th>Inclusive</th>
     <th>Exclusive</th>
     <th>NINE</th>
