@@ -8,7 +8,9 @@
   --rule:#e4e4e4; --rule-2:#efefef;
   --accent:oklch(0.50 0.17 300); --accent-soft:oklch(0.965 0.025 300);
   --sans:'Wanted Sans Variable','Wanted Sans',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  /* IBM Plex Mono has no Hangul; per-glyph fallback sends Korean to
+     Wanted Sans (already loaded) instead of rendering tofu boxes. */
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,'Wanted Sans Variable','Wanted Sans',monospace;
   --w:1080px;
 }
 /* One definition of the dark palette; both the OS default and the explicit
@@ -103,7 +105,8 @@ p, ul, ol, pre, blockquote { margin:0 0 1.1em; }
 /* ---------- lists: shallow indents, quiet markers ---------- */
 .post-content ul, .home ul { list-style:none; padding-left:1.1em; }
 .post-content li, .home li { position:relative; margin:0.42em 0; color:var(--fg-2); }
-.post-content ul > li::before, .home ul > li::before {
+/* .post-list draws its own rows; keep the body-copy bullet off it */
+.post-content ul:not(.post-list) > li::before, .home ul:not(.post-list) > li::before {
   content:""; position:absolute; left:-0.95em; top:0.72em;
   width:5px; height:1.5px; background:var(--fg-3);
 }
