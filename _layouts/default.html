@@ -17,6 +17,7 @@
 <header class="site-header" role="banner">
   <div class="wrapper">
     <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    <div class="site-header-right">
     <nav class="site-nav">
       {%- for path in site.header_pages -%}
         {%- assign my_page = site.pages | where: "path", path | first -%}
@@ -25,6 +26,12 @@
         {%- endif -%}
       {%- endfor -%}
     </nav>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-choice="system" title="시스템 설정 따르기">Sys</button>
+      <button type="button" data-theme-choice="light" title="라이트 모드">Light</button>
+      <button type="button" data-theme-choice="dark" title="다크 모드">Dark</button>
+    </div>
+    </div>
   </div>
 </header>
 
@@ -44,32 +51,123 @@
 </footer>
 
 <script>
-// Builds the sticky section index from headings (home: h2; notes: h2+h3).
+// Builds the sticky section index from headings. On note pages each h2 is a
+// section whose h3 sub-headings fold open and closed.
 (function () {
   var toc = document.querySelector('.cv-toc');
   if (!toc) return;
-  var src = toc.dataset.source || '.home-main', levels = (toc.dataset.levels || 'h2').split(',');
-  var heads = document.querySelectorAll(levels.map(function (l) { return src + ' ' + l; }).join(','));
-  var n = 0;
+  var src = toc.dataset.source || '.home-main';
+  var levels = (toc.dataset.levels || 'h2').split(',');
+  var nested = levels.indexOf('h3') !== -1;
+  var root = document.querySelector(src);
+  if (!root) { toc.style.display = 'none'; return; }
+  var heads = root.querySelectorAll(levels.join(','));
   if (!heads.length) { toc.style.display = 'none'; return; }
-  heads.forEach(function (h, i) {
-    if (!h.id) h.id = 'section-' + (i + 1);
-    var a = document.createElement('a');
-    a.href = '#' + h.id;
-    if (h.tagName === 'H2') { n++; a.textContent = String(n).padStart(2, '0') + ' ' + h.textContent.trim(); }
-    else { a.className = 'sub'; a.textContent = h.textContent.trim(); }
-    toc.appendChild(a);
-  });
-  var links = toc.querySelectorAll('a');
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      links.forEach(function (l) {
-        l.classList.toggle('current', l.getAttribute('href') === '#' + e.target.id);
-      });
+
+  if (!nested) {
+    var n = 0;
+    heads.forEach(function (h, i) {
+      if (!h.id) h.id = 'section-' + (i + 1);
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      n++;
+      a.textContent = String(n).padStart(2, '0') + ' ' + h.textContent.trim();
+      toc.appendChild(a);
     });
-  }, { rootMargin: '-80px 0px -70% 0px' });
-  heads.forEach(function (h) { io.observe(h); });
+    observe(toc.querySelectorAll('a'), heads);
+    return;
+  }
+
+  var sections = [], current = null, count = 0;
+  heads.forEach(function (h) {
+    if (h.tagName === 'H2') {
+      count++;
+      if (!h.id) h.id = 'section-' + count;
+      current = { head: h, index: count, subs: [] };
+      sections.push(current);
+    } else if (current) {
+      if (!h.id) h.id = current.head.id + '-' + (current.subs.length + 1);
+      current.subs.push(h);
+    }
+  });
+
+  sections.forEach(function (sec) {
+    var wrap = document.createElement('div');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cv-toc-sec';
+    btn.setAttribute('aria-expanded', 'false');
+    var sign = document.createElement('span');
+    sign.className = 'cv-toc-sign';
+    sign.textContent = sec.subs.length ? '+' : '';
+    var label = document.createElement('span');
+    label.textContent = String(sec.index).padStart(2, '0') + ' ' + sec.head.textContent.trim();
+    btn.appendChild(sign);
+    btn.appendChild(label);
+    wrap.appendChild(btn);
+
+    var subs = document.createElement('div');
+    subs.className = 'cv-toc-subs';
+    subs.hidden = true;
+    sec.subs.forEach(function (h) {
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent.trim();
+      subs.appendChild(a);
+    });
+    wrap.appendChild(subs);
+
+    btn.addEventListener('click', function () {
+      location.hash = sec.head.id;
+      if (!sec.subs.length) return;
+      var open = subs.hidden;
+      subs.hidden = !open;
+      sign.textContent = open ? '\u2212' : '+';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    toc.appendChild(wrap);
+  });
+
+  observe(toc.querySelectorAll('.cv-toc-subs a'), heads);
+
+  function observe(links, targets) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (l) {
+          l.classList.toggle('current', l.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+})();
+
+// Theme: system by default, remembers an explicit choice.
+(function () {
+  var KEY = 'site-theme';
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var buttons = document.querySelectorAll('[data-theme-choice]');
+  function stored() {
+    try { var v = localStorage.getItem(KEY); return v === 'light' || v === 'dark' ? v : 'system'; }
+    catch (e) { return 'system'; }
+  }
+  function apply(choice) {
+    var dark = choice === 'dark' || (choice === 'system' && mq.matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.themeChoice === choice ? 'true' : 'false');
+    });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var choice = b.dataset.themeChoice;
+      try { choice === 'system' ? localStorage.removeItem(KEY) : localStorage.setItem(KEY, choice); } catch (e) {}
+      apply(choice);
+    });
+  });
+  mq.addEventListener('change', function () { if (stored() === 'system') apply('system'); });
+  apply(stored());
 })();
 </script>
 

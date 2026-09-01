@@ -11,13 +11,17 @@
   --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
   --w:1080px;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:#0e0f10; --surface:#15171a; --fg:#ecedef; --fg-2:#b3b5b9; --fg-3:#7c7f84;
-    --rule:#282b30; --rule-2:#1e2124;
-    --accent:oklch(0.80 0.139 300); --accent-soft:oklch(0.25 0.05 300);
-  }
+/* One definition of the dark palette; both the OS default and the explicit
+   toggle pull from it. */
+@mixin dark-palette {
+  --bg:#0e0f10; --surface:#15171a; --fg:#ecedef; --fg-2:#b3b5b9; --fg-3:#7c7f84;
+  --rule:#282b30; --rule-2:#1e2124;
+  --accent:oklch(0.80 0.139 300); --accent-soft:oklch(0.25 0.05 300);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include dark-palette; }
+}
+:root[data-theme="dark"] { @include dark-palette; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -83,6 +87,9 @@ p, ul, ol, pre, blockquote { margin:0 0 1.1em; }
 .post-content > h2:first-child, .home h2:first-child { margin-top:0; }
 .post-content h3, .home h3 { font-size:19px; font-weight:500; letter-spacing:-0.02em; margin:36px 0 6px; }
 .post-content h4, .home h4 { font-size:17px; margin:24px 0 6px; }
+.post-content h2 { margin-bottom:24px; }
+.post-content h3 { margin-bottom:12px; }
+.post-content h2 + h3 { margin-top:0; }
 
 /* the italic line under an h3 is a role/date subtitle */
 .post-content h3 + p em, .home h3 + p em {
@@ -108,7 +115,7 @@ p, ul, ol, pre, blockquote { margin:0 0 1.1em; }
 /* ---------- code ---------- */
 code, pre { font-family:var(--mono); }
 code {
-  font-size:0.86em; background:var(--rule-2); border:1px solid var(--rule);
+  font-size:0.86em; font-weight:400; background:var(--rule-2); border:1px solid var(--rule);
   border-radius:4px; padding:1px 5px; color:var(--fg-2);
 }
 pre {
@@ -121,7 +128,7 @@ pre > code { background:none; border:0; padding:0; font-size:inherit; }
 /* ---------- tables: hairlines, mono headers, own scroll ---------- */
 .post-content table, .home table {
   display:block; overflow-x:auto; width:100%;
-  border-collapse:collapse; font-size:14.5px; line-height:1.62;
+  border-collapse:collapse; font-size:15px; line-height:1.62;
   border-top:1.5px solid var(--fg); border-bottom:1px solid var(--rule);
   margin:0.9em 0 1.4em;
 }
@@ -163,7 +170,6 @@ pre > code { background:none; border:0; padding:0; font-size:inherit; }
 .cv-toc .cv-toc-label { color:var(--fg-3); padding-bottom:6px; border-bottom:1px solid var(--rule); }
 .cv-toc a { color:var(--fg-3); }
 .cv-toc a.current { color:var(--fg); }
-.cv-toc a.sub { padding-left:1.6em; font-size:11px; }
 .post-body { padding-top:36px; }
 .post-body > .post-content { padding-top:0; }
 
@@ -210,3 +216,33 @@ pre > code { background:none; border:0; padding:0; font-size:inherit; }
 
 .notes-section { border-top:1px solid var(--rule); background:var(--surface); margin-top:56px; }
 .notes-section .wrapper { padding-top:44px; padding-bottom:56px; }
+
+/* ---------- note body measure ---------- */
+.post-body > .post-content { max-width:74ch; }
+
+/* ---------- collapsible section index ---------- */
+.post-body .cv-toc { gap:2px; }
+.cv-toc .cv-toc-sec {
+  display:flex; align-items:baseline; gap:6px; width:100%;
+  background:none; border:0; padding:4px 0; cursor:pointer;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.03em; color:var(--fg-3);
+  text-align:left;
+}
+.cv-toc .cv-toc-sec:hover { color:var(--fg); }
+.cv-toc .cv-toc-sec[aria-expanded="true"] { color:var(--fg); }
+.cv-toc .cv-toc-sign { width:1em; flex:0 0 auto; color:var(--fg-3); }
+.cv-toc .cv-toc-subs { display:flex; flex-direction:column; gap:5px; padding:2px 0 6px 1.6em; }
+.cv-toc .cv-toc-subs[hidden] { display:none; }
+.cv-toc .cv-toc-subs a { font-size:11px; line-height:1.5; color:var(--fg-3); }
+.cv-toc .cv-toc-subs a:hover { color:var(--fg); text-decoration:none; }
+
+/* ---------- theme switch ---------- */
+.theme-switch { display:flex; border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.theme-switch button {
+  padding:5px 9px; background:none; border:0; border-right:1px solid var(--rule); cursor:pointer;
+  font-family:var(--mono); font-size:11px; letter-spacing:0.05em; text-transform:uppercase; color:var(--fg-3);
+}
+.theme-switch button:last-child { border-right:0; }
+.theme-switch button[aria-pressed="true"] { background:var(--fg); color:var(--bg); }
+.site-header .wrapper { gap:24px; }
+.site-header-right { display:flex; align-items:center; gap:22px; }
